@@ -5,7 +5,23 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 
-return Application::configure(basePath: dirname(__DIR__))
+$root = dirname(__DIR__);
+
+foreach ([
+    $root.'/storage/app/private',
+    $root.'/storage/app/public',
+    $root.'/storage/framework/cache/data',
+    $root.'/storage/framework/sessions',
+    $root.'/storage/framework/views',
+    $root.'/storage/logs',
+    $root.'/bootstrap/cache',
+] as $directory) {
+    if (! is_dir($directory)) {
+        mkdir($directory, 0755, true);
+    }
+}
+
+return Application::configure(basePath: $root)
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
