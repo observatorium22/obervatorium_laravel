@@ -1,0 +1,6 @@
+RewriteEngine On 
+#RewriteBase /
+## Test that file requested has php extension 
+# RewriteCond %{REQUEST_FILENAME} ^.+\.php$  
+## Forbid Access 
+# RewriteRule .* - [F,NS,L]      

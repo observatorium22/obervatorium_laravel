@@ -1,0 +1,7 @@
+                  	/* All Mobile Sizes (devices and browser) */
+
+ a.nav_a:link
+,a.nav_a:active
+,a.nav_a:visited
+,a.nav_a:hover
+,a.nav_a_selected{    font-size:17px;  line-height:18px; letter-spacing: 0px;}   
