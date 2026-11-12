@@ -58,20 +58,24 @@ Pass a path if the JSON file is somewhere else. The command updates records by t
 
 ## Run it locally
 
-From the `laravel` directory, with PHP 8.5:
+From the project directory, with PHP 8.5. This path does not use `proc_open`:
 
 ```bash
 composer install
-copy .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
-php artisan observatorium:import
-php artisan make:filament-user
-php artisan serve
+php scripts/install.php
 ```
 
-The site is then at `http://127.0.0.1:8000` and the admin at `http://127.0.0.1:8000/admin`.
+`composer install` only refreshes PHP packages. `php scripts/install.php` creates `.env` when it is missing, sets `APP_KEY` when it is empty, publishes the Filament assets, migrates the database, and links `public/storage`.
+
+Create the first editor in the same run:
+
+```bash
+php scripts/install.php --name="Editor" --email="editor@example.com" --password="change-me"
+```
+
+Point the web server document root at `public`. The site is then at `/` and the admin at `/admin`.
+
+`php artisan dev`, `php artisan serve`, and `php artisan test` still need `proc_open`. Import content with `php artisan observatorium:import` once the database settings in `.env` are in place. The vendor directory has to be present first. Composer can create it when the zip extension is enabled. Otherwise copy `vendor` from a machine where the dependencies are already installed.
 
 `public/files` must point at `../obervatorium/files`. On Windows that is a directory junction:
 
