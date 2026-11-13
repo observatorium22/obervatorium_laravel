@@ -7,6 +7,9 @@
             @if ($imageRoute && $selected->images->count() > 1)
                 <a class="obs_list_item_title_a" href="{{ route($imageRoute, $selected) }}">MORE IMAGES</a>
             @endif
+            @if ($listUnderImage ?? false)
+                @include('partials.entry-list')
+            @endif
         </div>
         <div class="entry_text item_body">
             <div class="item_title">{{ $selected->title }}</div>
@@ -22,14 +25,6 @@
     </article>
 @endif
 
-<div id="{{ $listId }}" class="entry_list">
-    @php $year = null; @endphp
-    @foreach ($items as $item)
-        @if ($item->year !== $year)
-            @php $year = $item->year; @endphp
-            <span class="year_label">{{ $year }}</span><br>
-        @endif
-        <a class="{{ $selected && $selected->is($item) ? 'list_item_a_selected' : 'list_item_a' }}"
-           href="{{ route($routeName, $item) }}">{{ $label($item) }}</a><br>
-    @endforeach
-</div>
+@if (! ($listUnderImage ?? false) || ! $selected)
+    @include('partials.entry-list')
+@endif

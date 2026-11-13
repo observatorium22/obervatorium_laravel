@@ -9,6 +9,7 @@
         'items' => $items,
         'routeName' => 'blog.show',
         'imageRoute' => null,
+        'listUnderImage' => true,
         'label' => fn ($item) => trim(($item->date_label ? $item->date_label.': ' : '').$item->title),
     ])
 @endsection
