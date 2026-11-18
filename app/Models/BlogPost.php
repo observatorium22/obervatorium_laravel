@@ -36,4 +36,12 @@ class BlogPost extends Model
     {
         return $query->where('is_published', true);
     }
+
+    public function scopeLatestFirst(Builder $query): Builder
+    {
+        return $query
+            ->orderByRaw("STR_TO_DATE(date_label, '%d/%m/%Y') IS NULL")
+            ->orderByRaw("STR_TO_DATE(date_label, '%d/%m/%Y') DESC")
+            ->orderByDesc('id');
+    }
 }

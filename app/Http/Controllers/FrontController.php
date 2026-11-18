@@ -79,7 +79,7 @@ class FrontController extends Controller
 
     public function blog(?BlogPost $blog = null): View
     {
-        $items = BlogPost::published()->with(['images', 'pdfs'])->orderBy('position')->get();
+        $items = BlogPost::published()->with(['images', 'pdfs'])->latestFirst()->get();
 
         return view('blog.index', [
             'section' => 'blog',
@@ -96,6 +96,7 @@ class FrontController extends Controller
             'section' => 'about',
             'items' => $items,
             'selected' => $this->selected($items, $about),
+            'settings' => SiteSetting::current(),
         ]);
     }
 

@@ -38,6 +38,34 @@ function toggleMenu() {
     menu.hidden = !menu.hidden;
 }
 
+function hideGalleryCaptions() {
+    document.querySelectorAll('.galery_thumb_info').forEach(function (info) {
+        info.style.display = 'none';
+    });
+}
+
+var lastGalleryTouchAt = 0;
+
+window.addEventListener('touchstart', function () {
+    lastGalleryTouchAt = Date.now();
+    hideGalleryCaptions();
+}, { passive: true });
+
+window.addEventListener('pagehide', hideGalleryCaptions);
+window.addEventListener('pageshow', hideGalleryCaptions);
+
+function galleryHoverIsReal(event) {
+    if (Date.now() - lastGalleryTouchAt < 1000) {
+        return false;
+    }
+
+    if (event.sourceCapabilities && event.sourceCapabilities.firesTouchEvents) {
+        return false;
+    }
+
+    return !window.matchMedia('(hover: none), (pointer: coarse)').matches;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var button = document.getElementById('menu_toggle');
     if (button) {
@@ -47,7 +75,11 @@ document.addEventListener('DOMContentLoaded', function () {
     initProjectSlideshow();
 
     document.querySelectorAll('.galery_image_container').forEach(function (tile) {
-        tile.addEventListener('mouseover', function () {
+        tile.addEventListener('mouseover', function (event) {
+            if (!galleryHoverIsReal(event)) {
+                return;
+            }
+
             var info = tile.querySelector('.galery_thumb_info');
             if (info) {
                 info.style.display = 'block';

@@ -39,6 +39,8 @@ class ManageSite extends Page
 
         $this->form->fill([
             'mission_statement' => $settings->mission_statement,
+            'instagram_url' => $settings->instagram_url,
+            'facebook_url' => $settings->facebook_url,
             'featured_project_ids_text' => implode(',', $settings->featured_project_ids ?? []),
         ]);
     }
@@ -48,6 +50,18 @@ class ManageSite extends Page
         return $schema
             ->components([
                 TextInput::make('mission_statement')->maxLength(255)->columnSpanFull(),
+                TextInput::make('instagram_url')
+                    ->label('Instagram')
+                    ->url()
+                    ->maxLength(255)
+                    ->helperText('Shown on the about page, under the newsletter link. Leave empty to hide it.')
+                    ->columnSpanFull(),
+                TextInput::make('facebook_url')
+                    ->label('Facebook')
+                    ->url()
+                    ->maxLength(255)
+                    ->helperText('Shown on the about page, under the newsletter link. Leave empty to hide it.')
+                    ->columnSpanFull(),
                 TextInput::make('featured_project_ids_text')
                     ->label('Homepage project order')
                     ->helperText('Comma-separated project ids. The first id is shown first on the gallery.')
@@ -83,6 +97,8 @@ class ManageSite extends Page
         $settings = SiteSetting::current();
         $settings->fill([
             'mission_statement' => $state['mission_statement'] ?? null,
+            'instagram_url' => $state['instagram_url'] ?: null,
+            'facebook_url' => $state['facebook_url'] ?: null,
             'featured_project_ids' => $ids,
         ])->save();
 
