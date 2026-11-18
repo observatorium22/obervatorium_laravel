@@ -18,7 +18,7 @@ class FrontController extends Controller
     {
         $settings = SiteSetting::current();
         $ids = array_map('intval', $settings->featured_project_ids ?? []);
-        $projects = Project::published()->with('images')->orderBy('position')->get();
+        $projects = Project::published()->with('images')->latestFirst()->get();
 
         $featured = collect($ids)
             ->map(fn (int $id) => $projects->firstWhere('legacy_id', $id))
@@ -37,7 +37,7 @@ class FrontController extends Controller
 
     public function projects(?Project $project = null): View
     {
-        $projects = Project::published()->with('images')->orderBy('position')->get();
+        $projects = Project::published()->with('images')->latestFirst()->get();
         $selected = $this->selected($projects, $project);
 
         return view('projects.index', [
@@ -63,7 +63,7 @@ class FrontController extends Controller
 
     public function news(?NewsItem $news = null): View
     {
-        $items = NewsItem::published()->with(['images', 'pdfs'])->orderBy('position')->get();
+        $items = NewsItem::published()->with(['images', 'pdfs'])->latestFirst()->get();
 
         return view('news.index', [
             'section' => 'news',

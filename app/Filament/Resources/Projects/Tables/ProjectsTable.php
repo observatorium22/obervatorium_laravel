@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProjectsTable
 {
@@ -21,7 +22,7 @@ class ProjectsTable
                 IconColumn::make('is_featured')->boolean()->label('Homepage'),
                 IconColumn::make('is_published')->boolean()->label('Published'),
             ])
-            ->defaultSort('position')
+            ->defaultSort(fn (Builder $query): Builder => $query->latestFirst(), 'desc')
             ->recordActions([
                 EditAction::make(),
             ])

@@ -38,4 +38,9 @@ class Project extends Model
     {
         return $query->where('is_published', true);
     }
+
+    public function scopeLatestFirst(Builder $query): Builder
+    {
+        return $query->orderByDesc('year')->orderByDesc('legacy_id')->orderByDesc('id');
+    }
 }
