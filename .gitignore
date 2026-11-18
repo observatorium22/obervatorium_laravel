@@ -1,3 +1,32 @@
+# Laravel storage - tijdelijke en gegenereerde bestanden
+/storage/app/private/*
+!/storage/app/private/.gitignore
+
+/storage/app/public/*
+!/storage/app/public/.gitignore
+
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Livewire tijdelijke uploads
+/storage/app/private/livewire-tmp/
+
+
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
+
 *.log
 .DS_Store
 .env
