@@ -6,7 +6,12 @@
             @if ($project->galleryUrl())
                 <a class="black_a" href="{{ route('projects.images', $project) }}">
                     <div class="galery_image_container">
-                        <img class="galery_image" src="{{ $project->galleryUrl() }}" alt="{{ $project->title }}">
+                        <img class="galery_image"
+                             src="{{ $project->galleryUrl() }}"
+                             @if ($srcset = $project->gallerySrcSet()) srcset="{{ $srcset }}" @endif
+                             alt="{{ $project->title }}"
+                             @unless ($loop->index < 6) loading="lazy" @endunless
+                             decoding="async">
                         <div class="galery_thumb_info">{{ $project->title }}<br>{{ $project->location }}</div>
                     </div>
                 </a>
