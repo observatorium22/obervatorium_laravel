@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
     'mission_statement',
     'instagram_url',
     'facebook_url',
+    'linkedin_url',
     'featured_project_ids',
 ])]
 class SiteSetting extends Model
@@ -16,6 +17,8 @@ class SiteSetting extends Model
     public const DEFAULT_INSTAGRAM_URL = 'https://www.instagram.com/observatoriumrotterdam/';
 
     public const DEFAULT_FACEBOOK_URL = 'https://www.facebook.com/ObservatoriumRotterdam';
+
+    public const DEFAULT_LINKEDIN_URL = 'https://www.linkedin.com/company/observatorium-public-art-for-public-life';
 
     protected function casts(): array
     {
@@ -29,6 +32,7 @@ class SiteSetting extends Model
         return static::query()->firstOrCreate([], [
             'instagram_url' => self::DEFAULT_INSTAGRAM_URL,
             'facebook_url' => self::DEFAULT_FACEBOOK_URL,
+            'linkedin_url' => self::DEFAULT_LINKEDIN_URL,
         ]);
     }
 }

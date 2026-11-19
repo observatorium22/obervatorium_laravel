@@ -9,7 +9,10 @@
             <a class="obs_list_item_title_a" href="{{ $settings->instagram_url }}" target="_blank" rel="noopener">Instagram</a><br>
         @endif
         @if (filled($settings->facebook_url))
-            <a class="obs_list_item_title_a" href="{{ $settings->facebook_url }}" target="_blank" rel="noopener">Facebook</a>
+            <a class="obs_list_item_title_a" href="{{ $settings->facebook_url }}" target="_blank" rel="noopener">Facebook</a>@if (filled($settings->linkedin_url))<br>@endif
+        @endif
+        @if (filled($settings->linkedin_url))
+            <a class="obs_list_item_title_a" href="{{ $settings->linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a>
         @endif
     </p>
 </div>

@@ -41,6 +41,7 @@ class ManageSite extends Page
             'mission_statement' => $settings->mission_statement,
             'instagram_url' => $settings->instagram_url,
             'facebook_url' => $settings->facebook_url,
+            'linkedin_url' => $settings->linkedin_url,
             'featured_project_ids_text' => implode(',', $settings->featured_project_ids ?? []),
         ]);
     }
@@ -58,6 +59,12 @@ class ManageSite extends Page
                     ->columnSpanFull(),
                 TextInput::make('facebook_url')
                     ->label('Facebook')
+                    ->url()
+                    ->maxLength(255)
+                    ->helperText('Shown on the about page, under the newsletter link. Leave empty to hide it.')
+                    ->columnSpanFull(),
+                TextInput::make('linkedin_url')
+                    ->label('LinkedIn')
                     ->url()
                     ->maxLength(255)
                     ->helperText('Shown on the about page, under the newsletter link. Leave empty to hide it.')
@@ -99,6 +106,7 @@ class ManageSite extends Page
             'mission_statement' => $state['mission_statement'] ?? null,
             'instagram_url' => $state['instagram_url'] ?: null,
             'facebook_url' => $state['facebook_url'] ?: null,
+            'linkedin_url' => $state['linkedin_url'] ?: null,
             'featured_project_ids' => $ids,
         ])->save();
 
