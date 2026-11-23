@@ -45,6 +45,17 @@ trait HasMediaAssets
         return Files::url($this->galleryPath());
     }
 
+    public function sharpGalleryUrl(): ?string
+    {
+        $path = $this->galleryPath();
+
+        if ($path === null) {
+            return null;
+        }
+
+        return Files::url($this->sharpGalleryPath($path) ?? $path);
+    }
+
     public function gallerySrcSet(): ?string
     {
         $path = $this->galleryPath();

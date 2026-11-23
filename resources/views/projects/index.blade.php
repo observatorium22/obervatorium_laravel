@@ -9,7 +9,7 @@
                 <div id="project_preview_item_image_container">
                     @if ($selected->galleryUrl())
                         <a href="{{ route('projects.images', $selected) }}">
-                            <img class="project_preview_item_image" src="{{ $selected->galleryUrl() }}" alt="{{ $selected->title }}">
+                            <img class="project_preview_item_image" src="{{ $selected->sharpGalleryUrl() }}" alt="{{ $selected->title }}">
                         </a>
                     @endif
                 </div>
